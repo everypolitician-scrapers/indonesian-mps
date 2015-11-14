@@ -1,6 +1,7 @@
 #!/bin/env ruby
 # encoding: utf-8
 
+require 'rest-client'
 require 'scraperwiki'
 require 'wikidata/fetcher'
 require 'nokogiri'
@@ -34,3 +35,5 @@ def fetch_info(names)
 end
 
 fetch_info wikinames_from('https://id.wikipedia.org/wiki/Daftar_anggota_DPR_RI_2014%E2%80%932019')
+warn RestClient.post ENV['MORPH_REBUILDER_URL'], {} if ENV['MORPH_REBUILDER_URL']
+
