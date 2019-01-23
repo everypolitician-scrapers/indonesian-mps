@@ -19,4 +19,8 @@ replaced = EveryPolitician::Wikidata.wikipedia_xpath(
 category_2014 = WikiData::Category.new('Kategori:Anggota DPR 2014-2019', 'id').member_titles
 category_2009 = WikiData::Category.new('Kategori:Anggota DPR 2009-2014', 'id').member_titles
 
-EveryPolitician::Wikidata.scrape_wikidata(ids: existing, names: { id: names | replaced | category_2014 | category_2009 })
+query = 'SELECT DISTINCT ?item WHERE { ?item p:P39/ps:P39 wd:Q56057048 }'
+p39s = EveryPolitician::Wikidata.sparql(query)
+
+
+EveryPolitician::Wikidata.scrape_wikidata(ids: existing | p39s, names: { id: names | replaced | category_2014 | category_2009 })
